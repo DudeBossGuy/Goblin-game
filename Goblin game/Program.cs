@@ -25,7 +25,7 @@ namespace goblingame
             sword.Description = "the sword is sharp, you should go kill some gobos with it";
             sword.Damage = 5;
             sword.Get();
-            Console.WriteLine("there are two doors one to your left and one to your right which way do you go?");
+            Console.WriteLine("there are two doors one to your right and one to your right which way do you go?");
             
             
 
@@ -51,14 +51,37 @@ namespace goblingame
         public class Map
         {
             public string answer;
-            public string option1;
-            public string option2;
-            public string option3;
-            public string option4;
+            public bool option1;
+            public bool option2;
+            public bool option3;
+            public bool option4;
             public string option5;
             public void Nav()
             {
-                Console.WriteLine("Do you want to go ");
+                Console.WriteLine("Do you want to");
+                if (option1)
+                {
+                    Console.WriteLine("go back");
+                }
+                if (option1)
+                {
+                    Console.WriteLine("go back");
+                }
+                if (option1)
+                {
+                    Console.WriteLine("go back");
+                }
+                if (option1)
+                {
+                    Console.WriteLine("go back");
+                }
+                if (option1)
+                {
+                    Console.WriteLine("go back");
+                }
+                Console.WriteLine();
+
+
             }
         }
     }
