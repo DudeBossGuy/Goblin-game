@@ -69,7 +69,7 @@ namespace goblingame
             public int Room;
             public int Spawn;
             public int End;
-            public string 
+            public string[] Description; 
             public int[] RoomGobiLev;
             public int[] RoomLootLev;
             public bool[,] RoomPath;
@@ -78,6 +78,8 @@ namespace goblingame
                 RoomPath = new bool[16, 4];
                 RoomGobiLev = new int[16];
                 RoomLootLev = new int[16];
+                Description = new string[16];
+
             }
             public void Nav()
             {
@@ -86,6 +88,7 @@ namespace goblingame
                 Direction = 0;
                 while (Room != End && Answer != "yes")
                 {
+                    Console.WriteLine(Description[Room]);
                     Console.WriteLine("Do you want to:");
                     for (RoomDir = 0; RoomDir < 4; RoomDir++)
                     {
