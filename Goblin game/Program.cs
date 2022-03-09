@@ -28,6 +28,7 @@ namespace goblingame
             sword.Name = "sword";
             sword.Description = "the sword is sharp, you should go kill some gobos with it";
             sword.Damage = 5;
+            Console.WriteLine("  _______\n /       \\\n|  .  .   |\n \\_______/ \n ");
             sword.Get();
             Map one = new();
             one.InitMap();
@@ -42,9 +43,7 @@ namespace goblingame
             one.Spawn = 0;
             one.End = 4;
             one.Nav();
-
-
-
+            
         }
         public class Item
         {
@@ -87,8 +86,24 @@ namespace goblingame
                 Room = Spawn;
                 Direction = 0;
                 while (Room != End && Answer != "yes")
-                {
+                { 
                     Console.WriteLine(Description[Room]);
+                    if (RoomGobiLev[Room] == 1)
+                    {
+
+                        Console.WriteLine("Do you want to attack or heal?");
+                        Answer = Console.ReadLine();
+                        if (Answer.Contains("attack") || Answer == "a")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("  ▖▖▖▖▖▖▖\n ▖      ▖▖▖\n▖  ▖ ▖    ▖");
+
+                        }
+                        else if (Answer.Contains("heal") || Answer == "h")
+                        {
+
+                        }
+                    }
                     Console.WriteLine("Do you want to:");
                     for (RoomDir = 0; RoomDir < 4; RoomDir++)
                     {
