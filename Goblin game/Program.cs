@@ -32,6 +32,7 @@ namespace goblingame
             sword.Get();
             Map one = new();
             one.InitMap();
+            one.RoomGobiLev[2] = 1;
             one.RoomPath[0, 1] = true;
             one.RoomPath[1, 3] = true;
 
@@ -68,6 +69,8 @@ namespace goblingame
             public int Room;
             public int Spawn;
             public int End;
+            public int Health;
+            public int Potions;
             public string[] Description; 
             public int[] RoomGobiLev;
             public int[] RoomLootLev;
@@ -99,10 +102,16 @@ namespace goblingame
                             Console.WriteLine("  ▖▖▖▖▖▖▖\n ▖      ▖▖▖\n▖  ▖ ▖    ▖");
 
                         }
-                        else if (Answer.Contains("heal") || Answer == "h")
+                        else if (Answer.Contains("heal") || Answer == "h") 
                         {
-
+                            if (Potions > 0)
+                            {
+                                Console.WriteLine("You consume a potion");
+                                Health = Health + 5;
+                                Potions = Potions - 1;
+                            }
                         }
+
                     }
                     Console.WriteLine("Do you want to:");
                     for (RoomDir = 0; RoomDir < 4; RoomDir++)
