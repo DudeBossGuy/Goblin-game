@@ -11,7 +11,6 @@ namespace goblingame
             bool HasSword;
             bool HasAxe;
             bool HasBow;
-            bool HasKey;
             int Arrows;
             int Potions;
             string Answer;
@@ -71,6 +70,7 @@ namespace goblingame
             public int End;
             public int Health;
             public int Potions;
+            public int[] Goblinhealth;
             public string[] Description; 
             public int[] RoomGobiLev;
             public int[] RoomLootLev;
@@ -81,37 +81,62 @@ namespace goblingame
                 RoomGobiLev = new int[16];
                 RoomLootLev = new int[16];
                 Description = new string[16];
+                Goblinhealth = new int[5];
 
             }
             public void Nav()
             {
                 int RoomDir;
+                int T;
+
                 Room = Spawn;
                 Direction = 0;
                 while (Room != End && Answer != "yes")
-                { 
+                {
+                    T = RoomGobiLev[Room];
                     Console.WriteLine(Description[Room]);
-                    if (RoomGobiLev[Room] == 1)
+                    while (Goblinhealth[1] != 0 && Goblinhealth[2] != 0 && Goblinhealth[3] != 0 && Goblinhealth[4] != 0 && Goblinhealth[5] != 0)
                     {
-
-                        Console.WriteLine("Do you want to attack or heal?");
+                        Console.WriteLine("Do you want to atak or heal?");
                         Answer = Console.ReadLine();
-                        if (Answer.Contains("attack") || Answer == "a")
+                        Answer = Answer.ToLower();
+                        if (Answer.Contains("attack") || Answer == "A")
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("  ▖▖▖▖▖▖▖\n ▖      ▖▖▖\n▖  ▖ ▖    ▖");
+                            switch (T)
+                            {
+                                case 1:
+                                    for (int i = 1; i < 5; i++)
+                                    {
+                                        Goblinhealth[i] = 0;
+                                    }
+                                    break;
+                                case 2:
+                                    for (int i = 1; i < 5; i++)
+                                    {
+                                        Goblinhealth[i] = 0;
+                                    }
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                                case 5:
+                                    break;
 
+                            }
                         }
-                        else if (Answer.Contains("heal") || Answer == "h") 
+                        else if (Answer.Contains("heal") || Answer == "h")
                         {
                             if (Potions > 0)
                             {
-                                Console.WriteLine("You consume a potion");
-                                Health = Health + 5;
+                                Console.WriteLine("You heal");
                                 Potions = Potions - 1;
                             }
+                            else
+                                Console.WriteLine("You don't have enough potions to heal");
                         }
-
+                        else
+                            Console.WriteLine("you can't do that right now");
                     }
                     Console.WriteLine("Do you want to:");
                     for (RoomDir = 0; RoomDir < 4; RoomDir++)
