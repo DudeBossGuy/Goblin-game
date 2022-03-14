@@ -8,11 +8,6 @@ namespace goblingame
 
         static void Main()
         {
-            bool HasSword;
-            bool HasAxe;
-            bool HasBow;
-            int Arrows;
-            int Potions;
             string Answer;
             byte Health;
             byte Room;
@@ -22,7 +17,6 @@ namespace goblingame
             Console.ReadLine();
             Console.WriteLine("have this sword");
             Console.ReadLine();
-            HasSword = true;
             Item sword = new();
             sword.Name = "sword";
             sword.Description = "the sword is sharp, you should go kill some gobos with it";
@@ -52,24 +46,31 @@ namespace goblingame
             public int Damage;
             public void Get()
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("You now have a " + Name);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(Description);
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.WriteLine("it does " + Damage + " damage");
-                Console.ResetColor();
+                if (Name == "Sword")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You now have a " + Name);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(Description);
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it does " + Damage + " damage");
+                    Console.ResetColor();
+                }
             }
         }
         public class Map
         {
             public string Answer;
+            public bool HasSword;
+            public bool HasAxe;
+            public bool HasBow;
+            public int Arrows;
+            public int Potions;
             public int Direction;
             public int Room;
             public int Spawn;
             public int End;
             public int Health;
-            public int Potions;
             public int[] Goblinhealth;
             public string[] Description; 
             public int[] RoomGobiLev;
@@ -105,10 +106,11 @@ namespace goblingame
                             switch (T)
                             {
                                 case 1:
-                                    for (int i = 1; i < 5; i++)
+                                    for (int i = 0; i < 5; i++)
                                     {
                                         Goblinhealth[i] = 0;
                                     }
+                                    Goblinhealth[1] = 10;
                                     break;
                                 case 2:
                                     for (int i = 1; i < 5; i++)
