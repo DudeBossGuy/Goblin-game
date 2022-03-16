@@ -81,7 +81,32 @@ namespace goblingame
                     Console.WriteLine("it does 5 damage");
                     Console.ResetColor();
                 }
-            }
+                else if (Name == "Arrow")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You now have an axe");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it does 8 damage");
+                    Console.WriteLine("You now have 5 arrows");
+                    Arrows = Arrows + 5;
+                    Console.ResetColor();
+                }
+                else if (Name == "Potions")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You now have an axe");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it does 8 damage");
+                    Console.WriteLine("You now have 5 potions");
+                    Potions = Potions + 5;
+                    Console.ResetColor();
+                }
+                }
+            }   
         }
         public class Map
         {
@@ -140,7 +165,7 @@ namespace goblingame
                                     {
                                         Goblinhealth[i] = 0;
                                     }
-                                    break;
+                                    break;4
                                 case 3:
                                     break;
                                 case 4:
