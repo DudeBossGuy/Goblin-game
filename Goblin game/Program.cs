@@ -74,11 +74,11 @@ namespace goblingame
                 else if (Name == "Bow")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("You now have an axe");
+                    Console.WriteLine("You now have a bow");
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
+                    Console.WriteLine("the bow is pretty damn good, it can shoot twice per turn. you should kill some goblins with it");
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.WriteLine("it does 8 damage");
+                    Console.WriteLine("it does 5 damage");
                     Console.ResetColor();
                 }
             }
