@@ -7,11 +7,7 @@ namespace goblingame
     {
 
         static void Main()
-        {
-            
-            string Answer;
-            byte Health;
-            byte Room;
+        { 
             Console.WriteLine("Hello, welcome to Goblin Village, goblins have taken over the world.");
             Console.ReadLine();
             Console.WriteLine("your job is to go kill everyone");
@@ -19,7 +15,7 @@ namespace goblingame
             Console.WriteLine("have this sword");
             Console.ReadLine();
             Player play = new();
-            play.Loot = "sword";
+            play.Loot = "Sword";
             play.Get();
             Map one = new();
             one.InitMap();
@@ -40,6 +36,7 @@ namespace goblingame
         public class Player
         {
             public string Loot;
+            public string Answer;
             public int Damage;
             public bool HasSword;
             public bool HasAxe;
@@ -116,6 +113,30 @@ namespace goblingame
                 else
                     Console.WriteLine("You don't have enough potions to heal");
             }
+            public void Attack()
+            {
+                if (HasAxe || HasBow)
+                {
+                    Console.WriteLine("Which weapon do you want to use?");
+                    Answer = Console.ReadLine();
+                    Answer = Answer.ToLower();
+                    if (Answer.Contains("sword") || Answer == "s")
+                    {
+                        Console.WriteLine("You do 5 damage to the goblin");
+                        Damage = 5;
+                    }
+                    else if (Answer.Contains("axe") || Answer == "a")
+                    {
+                        Console.WriteLine("You do 8 damage to the goblin");
+                        Damage = 8;
+                    }
+                    else if (Answer.Contains("bow") || Answer == "b")
+                    {
+                        Console.WriteLine("You do 5 damage to the goblin");
+                        Damage = 5;
+                    }
+                }
+            }
         }
         public class Map
         {
@@ -125,7 +146,8 @@ namespace goblingame
             public int Spawn;
             public int End;
             public int Health;
-            public int[] Goblinhealth;
+            public int GoblinHealth;
+            public int GoblinMaxHealth;
             public string[] Description; 
             public int[] RoomGobiLev;
             public int[] RoomLootLev;
@@ -137,7 +159,6 @@ namespace goblingame
                 RoomGobiLev = new int[16];
                 RoomLootLev = new int[16];
                 Description = new string[16];
-                Goblinhealth = new int[5];
 
 
             }
@@ -148,41 +169,50 @@ namespace goblingame
 
                 Room = Spawn;
                 Direction = 0;
-                while (Room != End && Answer != "yes")
+                while (Room != End && Answer != "p")
                 {
                     T = RoomGobiLev[Room];
                     Console.WriteLine(Description[Room]);
-                    while (Goblinhealth[1] != 0 && Goblinhealth[2] != 0 && Goblinhealth[3] != 0 && Goblinhealth[4] != 0 && Goblinhealth[5] != 0)
+                    while (GoblinHealth != 0)
                     {
-                        Console.WriteLine("Do you want to atak or heal?");
+                        switch (T)
+                        {
+                            case 1:
+                                GoblinMaxHealth = 10;
+                                GoblinHealth = GoblinMaxHealth;
+                                Console.WriteLine("There is a goblin intern in front of you, he spots you and procedes having a panic attack.");
+                                break;
+                            case 2:
+                                GoblinMaxHealth = 15;
+                                GoblinHealth = GoblinMaxHealth;
+                                Console.WriteLine("You see a sad lonley goblin, sipping his coffee as though his life means nothing.");
+                                break;
+                            case 3:
+                                GoblinMaxHealth = 20;
+                                GoblinHealth = GoblinMaxHealth;
+                                Console.WriteLine("You see a a goblin stabbing a printer, bouncing of the walls, she has a knife and is ready to kill.");
+                                break;
+                            case 4:
+                                GoblinMaxHealth = 25;
+                                GoblinHealth = GoblinMaxHealth;
+                                Console.WriteLine("you see a goblin gard, chowing down on calamari on the end of his spear.");
+                                break;
+                            case 5:
+                                GoblinMaxHealth = 35;
+                                GoblinHealth = GoblinMaxHealth;
+                                Console.WriteLine("You encounter the CEO of Gobin inc. and there is the goblin intern you bullied at the start, the CEO is his dad");
+                                break;
+
+                        }
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("you engage in combat!");
+                        Console.ResetColor();
+                        Console.WriteLine("Do you want to attack or heal?");
                         Answer = Console.ReadLine();
                         Answer = Answer.ToLower();
-                        if (Answer.Contains("attack") || Answer == "A")
+                        if (Answer.Contains("attack") || Answer == "a")
                         {
-                            switch (T)
-                            {
-                                case 1:
-                                    for (int i = 0; i < 5; i++)
-                                    {
-                                        Goblinhealth[i] = 0;
-                                    }
 
-                                    Goblinhealth[1] = 10;
-                                    break;
-                                case 2:
-                                    for (int i = 1; i < 5; i++)
-                                    {
-                                        Goblinhealth[i] = 0;
-                                    }
-                                    break;
-                                case 3:
-                                    break;
-                                case 4:
-                                    break;
-                                case 5:
-                                    break;
-
-                            }
                         }
                         else if (Answer.Contains("heal") || Answer == "h")
                         {
@@ -232,10 +262,6 @@ namespace goblingame
                     }
 
                 }
-            }
-            public class Player
-            {
-
             }
         }
     }
