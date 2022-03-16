@@ -115,7 +115,7 @@ namespace goblingame
                                     {
                                         Goblinhealth[i] = 0;
                                     }
-                                    break;
+                                    break;4
                                 case 3:
                                     break;
                                 case 4:
