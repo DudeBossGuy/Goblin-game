@@ -8,27 +8,21 @@ namespace goblingame
 
         static void Main()
         {
-            bool HasSword;
-            bool HasAxe;
-            bool HasBow;
-            int Arrows;
-            int Potions;
+            
             string Answer;
             byte Health;
             byte Room;
             Console.WriteLine("Hello, welcome to Goblin Village, goblins have taken over the world.");
             Console.ReadLine();
-            Console.WriteLine("you job is to go kill everyone");
+            Console.WriteLine("your job is to go kill everyone");
             Console.ReadLine();
             Console.WriteLine("have this sword");
             Console.ReadLine();
-            HasSword = true;
-            Item sword = new();
-            sword.Name = "sword";
-            sword.Description = "the sword is sharp, you should go kill some gobos with it";
-            sword.Damage = 5;
-            Console.WriteLine("  _______\n /       \\\n|  .  .   |\n \\_______/ \n ");
-            sword.Get();
+            Player play = new();
+            play.Name = "sword";
+            play.Description = "the sword is sharp, you should go kill some gobos with it";
+            play.Damage = 5;
+            play.Get();
             Map one = new();
             one.InitMap();
             one.RoomGobiLev[2] = 1;
@@ -45,20 +39,48 @@ namespace goblingame
             one.Nav();
             
         }
-        public class Item
+        public class Player
         {
             public string Name;
             public string Description;
             public int Damage;
+            public bool HasSword;
+            public bool HasAxe;
+            public bool HasBow;
+            public int Arrows;
+            public int Potions;
             public void Get()
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("You now have a " + Name);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(Description);
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.WriteLine("it does " + Damage + " damage");
-                Console.ResetColor();
+                if (Name == "Sword")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You now have a sword");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("the sword is sharp you should kill some goblins with it");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it does 5 damage");
+                    Console.ResetColor();
+                }
+                else if (Name == "Axe")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You now have an axe");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it does 8 damage");
+                    Console.ResetColor();
+                }
+                else if (Name == "Bow")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You now have an axe");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it does 8 damage");
+                    Console.ResetColor();
+                }
             }
         }
         public class Map
@@ -69,12 +91,12 @@ namespace goblingame
             public int Spawn;
             public int End;
             public int Health;
-            public int Potions;
             public int[] Goblinhealth;
             public string[] Description; 
             public int[] RoomGobiLev;
             public int[] RoomLootLev;
             public bool[,] RoomPath;
+
             public void InitMap()
             {
                 RoomPath = new bool[16, 4];
@@ -82,6 +104,7 @@ namespace goblingame
                 RoomLootLev = new int[16];
                 Description = new string[16];
                 Goblinhealth = new int[5];
+
 
             }
             public void Nav()
@@ -105,10 +128,12 @@ namespace goblingame
                             switch (T)
                             {
                                 case 1:
-                                    for (int i = 1; i < 5; i++)
+                                    for (int i = 0; i < 5; i++)
                                     {
                                         Goblinhealth[i] = 0;
                                     }
+
+                                    Goblinhealth[1] = 10;
                                     break;
                                 case 2:
                                     for (int i = 1; i < 5; i++)
@@ -179,6 +204,10 @@ namespace goblingame
                     }
 
                 }
+            }
+            public class Player
+            {
+
             }
         }
     }
