@@ -14,22 +14,27 @@ namespace goblingame
             Console.ReadLine();
             Console.WriteLine("have this sword");
             Console.ReadLine();
-            Player play = new();
-            play.Loot = "Sword";
-            play.Get();
+            Player temp = new();
+            temp.Loot = "Sword";
+            temp.Get();
             Map one = new();
             one.InitMap();
-            one.RoomGobiLev[2] = 1;
             one.RoomPath[0, 1] = true;
             one.RoomPath[1, 3] = true;
 
             one.RoomPath[1, 2] = true;
             one.RoomPath[5, 0] = true;
 
-            one.RoomPath[5, 3] = true;
-            one.RoomPath[4, 1] = true;
-            one.Spawn = 0;
-            one.End = 4;
+            one.RoomPath[1, 1] = true;
+            one.RoomPath[2, 3] = true;
+
+            one.RoomPath[2, 2] = true;
+            one.RoomPath[6, 0] = true;
+
+            one.RoomPath[6, 1] = true;
+            one.RoomPath[7, 3] = true;
+            one.RoomGobiLev[1] = 1;
+
             one.Nav();
             
         }
@@ -38,11 +43,13 @@ namespace goblingame
             public string Loot;
             public string Answer;
             public int Damage;
+            public int Health;
             public bool HasSword;
             public bool HasAxe;
             public bool HasBow;
             public int Arrows;
             public int Potions;
+            public int Armour;
             public void Get()
             {
                 if (Loot == "Sword")
@@ -81,25 +88,45 @@ namespace goblingame
                 else if (Loot == "Arrow")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("You now have an axe");
+                    Console.WriteLine("You now have 5 more arrows");
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.WriteLine("it does 8 damage");
-                    Console.WriteLine("You now have 5 arrows");
+                    Console.WriteLine("the arrows are sharp, they get shot by the bow, you should kill some goblins with them");
                     Arrows = Arrows + 5;
                     Console.ResetColor();
                 }
                 else if (Loot == "Potions")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("You now have an axe");
+                    Console.WriteLine("You now have 2 more potions");
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
+                    Console.WriteLine("the potions will heal you, you cant kill goblins with them");
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.WriteLine("it does 8 damage");
-                    Console.WriteLine("You now have 5 potions");
-                    Potions = Potions + 1;
+                    Potions = Potions + 2;
+                    Console.ResetColor();
+                }
+                else if (Loot == "Armour")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    switch (Armour)
+                    {
+                        case 0:
+                            Console.WriteLine("you now have leather armour");
+                            Armour = 1;
+                            break;
+                        case 1:
+                            Console.WriteLine("you now have bronze armour");
+                            Armour = 2;
+                            break;
+                        case 2:
+                            Console.WriteLine("you now have steel armour");
+                            Armour = 3;
+                            break;
+                    }
+                        
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("this will protect you againts goblin strikes");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it has " + Armour + " protection");
                     Console.ResetColor();
                 }
             }
@@ -109,6 +136,7 @@ namespace goblingame
                 {
                     Console.WriteLine("You heal");
                     Potions = Potions - 1;
+                    Health = 8;
                 }
                 else
                     Console.WriteLine("You don't have enough potions to heal");
@@ -122,18 +150,31 @@ namespace goblingame
                     Answer = Answer.ToLower();
                     if (Answer.Contains("sword") || Answer == "s")
                     {
-                        Console.WriteLine("You do 5 damage to the goblin");
+                        Console.WriteLine("You swing your sword at the goblin and do 5 damage to the goblin");
                         Damage = 5;
                     }
                     else if (Answer.Contains("axe") || Answer == "a")
                     {
-                        Console.WriteLine("You do 8 damage to the goblin");
+                        Console.WriteLine("You swing your axe at the goblin and do 8 damage to the goblin");
                         Damage = 8;
                     }
                     else if (Answer.Contains("bow") || Answer == "b")
                     {
-                        Console.WriteLine("You do 5 damage to the goblin");
-                        Damage = 5;
+                        if (Arrows >= 2)
+                        {
+                            Console.WriteLine("You fire 2 shots and do 10 damage to the goblin");
+                            Damage = 10;
+                        }
+                        if (Arrows < 2)
+                        {
+                            Console.WriteLine("You fire 1 shot and do 5 damage to the goblin");
+                            Damage = 5;
+                        }
+                        else
+                        {
+                            Console.WriteLine("You try and load your bow but you realise you've run out of arrows!");
+                            Damage = 0;
+                        }
                     }
                 }
             }
@@ -166,6 +207,8 @@ namespace goblingame
             {
                 int RoomDir;
                 int T;
+                Player play = new();
+                play.HasSword = true;
 
                 Room = Spawn;
                 Direction = 0;
@@ -212,14 +255,50 @@ namespace goblingame
                         Answer = Answer.ToLower();
                         if (Answer.Contains("attack") || Answer == "a")
                         {
-
+                            play.Attack();
+                            GoblinHealth = GoblinHealth - play.Damage;
                         }
                         else if (Answer.Contains("heal") || Answer == "h")
                         {
-                            
+                            play.Heal();
+                            Health = Health + play.Health;
+                            if (Health > 20)
+                                Health = 20;
                         }
                         else
                             Console.WriteLine("you can't do that right now");
+                        Console.WriteLine("The goblin attack you and does 4 damage");
+                        Health = Health - 4;
+                    }
+                    T = RoomLootLev[Room];
+                    switch (T)
+                    {
+                        case 1:
+                            if (play.HasAxe = false)
+                            { 
+                                Console.WriteLine("You find an axe, and pick it up");
+                                play.Loot = "Axe";
+                                play.Get();
+                            }
+                            break;
+                        case 2:
+                            if (play.HasBow = false)
+                            {
+                                Console.WriteLine("You find a bow, and pick it up");
+                                play.Loot = "Bow";
+                                play.Get();
+                            }
+                            break;
+                        case 3:
+                            Console.WriteLine("You find some arrows");
+                            play.Loot = "Arrows";
+                            play.Get();
+                            break;
+                        case 4:
+                            Console.WriteLine("You find some potions");
+                            break;
+                        case 5:
+                            break;
                     }
                     Console.WriteLine("Do you want to:");
                     for (RoomDir = 0; RoomDir < 4; RoomDir++)
