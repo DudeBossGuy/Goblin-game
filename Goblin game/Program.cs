@@ -61,6 +61,26 @@ namespace goblingame
                     Console.WriteLine("it does 5 damage");
                     Console.ResetColor();
                 }
+                else if (Name == "Axe")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You now have an axe");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it does 8 damage");
+                    Console.ResetColor();
+                }
+                else if (Name == "Bow")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You now have an axe");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("the axe is heavy you should kill some goblins with it");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("it does 8 damage");
+                    Console.ResetColor();
+                }
             }
         }
         public class Map
