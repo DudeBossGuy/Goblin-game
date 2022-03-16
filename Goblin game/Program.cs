@@ -19,9 +19,7 @@ namespace goblingame
             Console.WriteLine("have this sword");
             Console.ReadLine();
             Player play = new();
-            play.Name = "sword";
-            play.Description = "the sword is sharp, you should go kill some gobos with it";
-            play.Damage = 5;
+            play.Loot = "sword";
             play.Get();
             Map one = new();
             one.InitMap();
@@ -41,8 +39,7 @@ namespace goblingame
         }
         public class Player
         {
-            public string Name;
-            public string Description;
+            public string Loot;
             public int Damage;
             public bool HasSword;
             public bool HasAxe;
@@ -51,7 +48,7 @@ namespace goblingame
             public int Potions;
             public void Get()
             {
-                if (Name == "Sword")
+                if (Loot == "Sword")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("You now have a sword");
@@ -60,8 +57,9 @@ namespace goblingame
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.WriteLine("it does 5 damage");
                     Console.ResetColor();
+                    HasSword = true;
                 }
-                else if (Name == "Axe")
+                else if (Loot == "Axe")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("You now have an axe");
@@ -70,8 +68,9 @@ namespace goblingame
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.WriteLine("it does 8 damage");
                     Console.ResetColor();
+                    HasAxe = true;
                 }
-                else if (Name == "Bow")
+                else if (Loot == "Bow")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("You now have a bow");
@@ -80,8 +79,9 @@ namespace goblingame
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.WriteLine("it does 5 damage");
                     Console.ResetColor();
+                    HasBow = true;
                 }
-                else if (Name == "Arrow")
+                else if (Loot == "Arrow")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("You now have an axe");
@@ -93,7 +93,7 @@ namespace goblingame
                     Arrows = Arrows + 5;
                     Console.ResetColor();
                 }
-                else if (Name == "Potions")
+                else if (Loot == "Potions")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("You now have an axe");
@@ -102,11 +102,20 @@ namespace goblingame
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.WriteLine("it does 8 damage");
                     Console.WriteLine("You now have 5 potions");
-                    Potions = Potions + 5;
+                    Potions = Potions + 1;
                     Console.ResetColor();
                 }
+            }
+            public void Heal()
+            {
+                if (Potions > 0)
+                {
+                    Console.WriteLine("You heal");
+                    Potions = Potions - 1;
                 }
-            }   
+                else
+                    Console.WriteLine("You don't have enough potions to heal");
+            }
         }
         public class Map
         {
@@ -165,7 +174,7 @@ namespace goblingame
                                     {
                                         Goblinhealth[i] = 0;
                                     }
-                                    break;4
+                                    break;
                                 case 3:
                                     break;
                                 case 4:
@@ -177,13 +186,7 @@ namespace goblingame
                         }
                         else if (Answer.Contains("heal") || Answer == "h")
                         {
-                            if (Potions > 0)
-                            {
-                                Console.WriteLine("You heal");
-                                Potions = Potions - 1;
-                            }
-                            else
-                                Console.WriteLine("You don't have enough potions to heal");
+                            
                         }
                         else
                             Console.WriteLine("you can't do that right now");
