@@ -32,10 +32,10 @@
             one.Description[1] = "amongus";
             one.Description[2] = "the potatoes are coming";
             one.Description[3] = "you see a big chandelier";
-            one.Spawn = 0;
+            one.Spawn = 0; 
             one.End = 3;
             one.Nav();
-            
+            Console.WriteLine("piss");
         }
         public class Player
         {
@@ -145,8 +145,10 @@
                 if (HasAxe || HasBow)
                 {
                     Console.WriteLine("Which weapon do you want to use?");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     Answer = Console.ReadLine();
                     Answer = Answer.ToLower();
+                    Console.ResetColor();
                     if (Answer.Contains("sword") || Answer == "s")
                     {
                         Console.WriteLine("You swing your sword at the goblin and do 5 damage to the goblin");
@@ -223,10 +225,10 @@
                 IsDone = false;
                 Room = Spawn;
                 Direction = 0;
-                while (Room != End && Answer != "Elevator")
+                while ((Room != End) || (Answer != "Elevator"))
                 {
+                    IsDone = false;
                     T = RoomGobiLev[Room];
-                    Console.WriteLine("you are in office " + Room);
                     Console.WriteLine(Description[Room]);
                     GoblinHealth = 1;
                     if (T > 0)
@@ -258,7 +260,7 @@
                                     case 4:
                                         GoblinMaxHealth = 25;
                                         GoblinHealth = GoblinMaxHealth;
-                                        Console.WriteLine("you see a goblin gard, chowing down on calamari on the end of his spear.");
+                                        Console.WriteLine("you see a goblin gaurd, chowing down on calamari on the end of his spear.");
                                         IsDone = true;
                                         break;
                                     case 5:
@@ -273,11 +275,11 @@
                                 EnPL.E();
                                 Console.ResetColor();
                             }
-
-
                             Console.WriteLine("Do you want to attack or heal?");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             Answer = Console.ReadLine();
                             Answer = Answer.ToLower();
+                            Console.ResetColor();
                             if (Answer.Contains("attack") || Answer == "a")
                             {
                                 play.Attack();
@@ -373,27 +375,33 @@
                                 Console.WriteLine("Go west?");
                         }
                     }
-                    Answer = Console.ReadLine();
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Answer = Console.ReadLine(); 
                     Answer = Answer.ToLower();
-                    if (Answer.Contains("north") || Answer == "n")
+                    Console.ResetColor();
+                    if ((Answer.Contains("north") || Answer == "n") && RoomPath[Room, 0])
                     {
                         Room = Room - 4;
                         Console.WriteLine("you head north");
                     }
-                    else if (Answer.Contains("east") || Answer == "e")
+                    else if ((Answer.Contains("east") || Answer == "e") && RoomPath[Room, 1])
                     {
                         Room = Room + 1;
                         Console.WriteLine("you head east");
                     }
-                    else if (Answer.Contains("south") || Answer == "s")
+                    else if ((Answer.Contains("south") || Answer == "s") && RoomPath[Room, 2])
                     {
                         Room = Room + 4;
                         Console.WriteLine("you go south");
                     }
-                    else if (Answer.Contains("west") || Answer == "w")
+                    else if ((Answer.Contains("west") || Answer == "w") && RoomPath[Room, 3])
                     {
                         Room = Room - 1;
                         Console.WriteLine("you head west");
+                    }
+                    else if (Answer.Contains("yes"))
+                    {
+                        Console.WriteLine("dont type yes, type in the direction listed");
                     }
                     else
                     {
@@ -410,10 +418,11 @@
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("Press 'Enter' to Continue");
-                Console.ResetColor();
+
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.ReadLine();
+                Console.ResetColor();
             }
         }
     }
 }
-         
