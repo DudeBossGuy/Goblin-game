@@ -200,8 +200,6 @@
             public int[] RoomGobiLev;
             public int[] RoomLootLev;
             public bool[,] RoomPath;
-
-            
             string HealthOut;
             public void InitMap()
             {
@@ -233,7 +231,7 @@
                     GoblinHealth = 1;
                     if (T > 0)
                     {
-                        while (GoblinHealth > 0 && Health > 0)
+                        while (GoblinHealth > 0 && Health > 0 && GoblinFin[Room] == false)
                         {
                             if (IsDone == false)
                             {
@@ -317,12 +315,13 @@
                                 if (Health <= 0)
                                 {
                                     Room = Spawn;
-                                    Console.WriteLine("you died");
+                                    Console.WriteLine("you died and were sent back to the first room you found");
 
                                 }
                             }
                             else
                             {
+                                GoblinFin[Room] = true;
                                 Console.WriteLine("You defeated the Goblin!");
                             }
                         }
