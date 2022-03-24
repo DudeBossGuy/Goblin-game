@@ -29,7 +29,7 @@
             one.Description[2] = "the potatoes are coming";
             one.Description[3] = "you see a big chandelier";
             one.Spawn = 0; 
-            one.End = 3;
+            one.End = 1;
             one.Nav();
             Console.WriteLine("piss");
         }
@@ -224,7 +224,7 @@
                 IsDone = false;
                 Room = Spawn;
                 Direction = 0;
-                while ((Room != End) || (Answer != "Elevator"))
+                while (true)
                 {
                     IsDone = false;
                     T = RoomGobiLev[Room];
@@ -359,7 +359,13 @@
                             break;
                     }
                     if (Room == End)
+                    {
                         Console.WriteLine("There is an elevator here do you want to go through it? type 'elevator' to go through");
+                        Answer = Console.ReadLine();
+                        Answer = Answer.ToLower();
+                        if (Answer == "elevator")
+                            break;
+                    }
                     else
                     {
                         Console.WriteLine("Do you want to:");
