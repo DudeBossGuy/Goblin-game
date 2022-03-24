@@ -23,10 +23,6 @@
             one.RoomPath[2, 1] = true;
             one.RoomPath[3, 3] = true;
 
-            one.RoomGobiLev[2] = 1;
-            one.RoomLootLev[1] = 1;
-            one.RoomLootLev[3] = 2;
-            one.RoomGobiLev[3] = 2;
 
             one.Description[0] = "you see a garbarge can on the east side of the room";
             one.Description[1] = "amongus";
@@ -154,12 +150,12 @@
                         Console.WriteLine("You swing your sword at the goblin and do 5 damage to the goblin");
                         Damage = 5;
                     }
-                    else if (Answer.Contains("axe") || Answer == "a")
+                    else if ((Answer.Contains("axe") || Answer == "a") && HasAxe == true)
                     {
                         Console.WriteLine("You swing your axe at the goblin and do 8 damage to the goblin");
                         Damage = 8;
                     }
-                    else if (Answer.Contains("bow") || Answer == "b")
+                    else if ((Answer.Contains("bow") || Answer == "b") && HasBow == true)
                     {
                         if (Arrows >= 2)
                         {
@@ -176,6 +172,11 @@
                             Console.WriteLine("You try and load your bow but you realise you've run out of arrows!");
                             Damage = 0;
                         }
+                    }
+                    else
+                    {
+                        Damage = 0;
+                        Console.WriteLine("you look for a " + Answer + " but you can't find it");
                     }
                 }
                 else
@@ -359,54 +360,56 @@
                     }
                     if (Room == End)
                         Console.WriteLine("There is an elevator here do you want to go through it? type 'elevator' to go through");
-                    Console.WriteLine("Do you want to:");
-                    for (RoomDir = 0; RoomDir < 4; RoomDir++)
-                    {
-                        if (RoomPath[Room, RoomDir])
-                        {
-                            if (RoomDir == 0)
-                                Console.WriteLine("Go north?");
-                            if (RoomDir == 1)
-                                Console.WriteLine("Go east?");
-                            if (RoomDir == 2)
-                                Console.WriteLine("Go south?");
-                            if (RoomDir == 3)
-                                Console.WriteLine("Go west?");
-                        }
-                    }
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Answer = Console.ReadLine(); 
-                    Answer = Answer.ToLower();
-                    Console.ResetColor();
-                    if ((Answer.Contains("north") || Answer == "n") && RoomPath[Room, 0])
-                    {
-                        Room = Room - 4;
-                        Console.WriteLine("you head north");
-                    }
-                    else if ((Answer.Contains("east") || Answer == "e") && RoomPath[Room, 1])
-                    {
-                        Room = Room + 1;
-                        Console.WriteLine("you head east");
-                    }
-                    else if ((Answer.Contains("south") || Answer == "s") && RoomPath[Room, 2])
-                    {
-                        Room = Room + 4;
-                        Console.WriteLine("you go south");
-                    }
-                    else if ((Answer.Contains("west") || Answer == "w") && RoomPath[Room, 3])
-                    {
-                        Room = Room - 1;
-                        Console.WriteLine("you head west");
-                    }
-                    else if (Answer.Contains("yes"))
-                    {
-                        Console.WriteLine("dont type yes, type in the direction listed");
-                    }
                     else
                     {
-                        Console.WriteLine("You cant do that, try typing in the direction.");
+                        Console.WriteLine("Do you want to:");
+                        for (RoomDir = 0; RoomDir < 4; RoomDir++)
+                        {
+                            if (RoomPath[Room, RoomDir])
+                            {
+                                if (RoomDir == 0)
+                                    Console.WriteLine("Go north?");
+                                if (RoomDir == 1)
+                                    Console.WriteLine("Go east?");
+                                if (RoomDir == 2)
+                                    Console.WriteLine("Go south?");
+                                if (RoomDir == 3)
+                                    Console.WriteLine("Go west?");
+                            }
+                        }
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Answer = Console.ReadLine();
+                        Answer = Answer.ToLower();
+                        Console.ResetColor();
+                        if ((Answer.Contains("north") || Answer == "n") && RoomPath[Room, 0])
+                        {
+                            Room = Room - 4;
+                            Console.WriteLine("you head north");
+                        }
+                        else if ((Answer.Contains("east") || Answer == "e") && RoomPath[Room, 1])
+                        {
+                            Room = Room + 1;
+                            Console.WriteLine("you head east");
+                        }
+                        else if ((Answer.Contains("south") || Answer == "s") && RoomPath[Room, 2])
+                        {
+                            Room = Room + 4;
+                            Console.WriteLine("you go south");
+                        }
+                        else if ((Answer.Contains("west") || Answer == "w") && RoomPath[Room, 3])
+                        {
+                            Room = Room - 1;
+                            Console.WriteLine("you head west");
+                        }
+                        else if (Answer.Contains("yes"))
+                        {
+                            Console.WriteLine("dont type yes, type in the direction listed");
+                        }
+                        else
+                        {
+                            Console.WriteLine("You cant do that, try typing in the direction.");
+                        }
                     }
-
                 }
             }
 
